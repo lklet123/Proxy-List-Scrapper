@@ -11,19 +11,26 @@ from re import findall, sub
 import requests
 from requests.exceptions import ConnectionError
 
-SSL = 'https://www.sslproxies.org/'
-GOOGLE = 'https://www.google-proxy.net/'
-ANANY = 'https://free-proxy-list.net/anonymous-proxy.html'
-UK = 'https://free-proxy-list.net/uk-proxy.html'
-US = 'https://www.us-proxy.org/'
-NEW = 'https://free-proxy-list.net/'
-SPYS_ME = 'http://spys.me/proxy.txt'
-PROXYSCRAPE = 'https://api.proxyscrape.com/?request=getproxies&proxytype=all&country=all&ssl=all&anonymity=all'
-PROXYNOVA = 'https://www.proxynova.com/proxy-server-list/'
-PROXYLIST_DOWNLOAD_HTTP = 'https://www.proxy-list.download/HTTP'
-PROXYLIST_DOWNLOAD_HTTPS = 'https://www.proxy-list.download/HTTPS'
-PROXYLIST_DOWNLOAD_SOCKS4 = 'https://www.proxy-list.download/SOCKS4'
-PROXYLIST_DOWNLOAD_SOCKS5 = 'https://www.proxy-list.download/SOCKS5'
+A1 = 'http://www.nimadaili.com/gaoni/1/'
+A2 = 'http://www.nimadaili.com/gaoni/2/'
+A3 = 'http://www.nimadaili.com/gaoni/3/'
+A4 = 'http://www.nimadaili.com/gaoni/4/'
+A5 = 'http://www.nimadaili.com/gaoni/5/'
+A6 = 'http://www.nimadaili.com/gaoni/6/'
+A7 = 'http://www.nimadaili.com/gaoni/7/'
+A8 = 'http://www.nimadaili.com/gaoni/8/'
+A9 = 'http://www.nimadaili.com/gaoni/9/'
+A10 = 'http://www.nimadaili.com/gaoni/10/'
+A11 = 'http://www.nimadaili.com/gaoni/11/'
+A12 = 'http://www.nimadaili.com/gaoni/12/'
+A13 = 'http://www.nimadaili.com/gaoni/13/'
+A14 = 'http://www.nimadaili.com/gaoni/14/'
+A15 = 'http://www.nimadaili.com/gaoni/15/'
+A16 = 'http://www.nimadaili.com/gaoni/16/'
+A17 = 'http://www.nimadaili.com/gaoni/17/'
+A18 = 'http://www.nimadaili.com/gaoni/18/'
+A19 = 'http://www.nimadaili.com/gaoni/19/'
+A20 = 'http://www.nimadaili.com/gaoni/20/'
 ALL = 'ALL'
 
 
@@ -77,19 +84,26 @@ class Scrapper:
         self.proxies = []
         self.category = category
         self.Categories = {
-            'SSL': SSL,
-            'GOOGLE': GOOGLE,
-            'ANANY': ANANY,
-            'UK': UK,
-            'US': US,
-            'NEW': NEW,
-            'SPYS.ME': SPYS_ME,
-            'PROXYSCRAPE': PROXYSCRAPE,
-            'PROXYNOVA': PROXYNOVA,
-            'PROXYLIST_DOWNLOAD_HTTP': PROXYLIST_DOWNLOAD_HTTP,
-            'PROXYLIST_DOWNLOAD_HTTPS': PROXYLIST_DOWNLOAD_HTTPS,
-            'PROXYLIST_DOWNLOAD_SOCKS4': PROXYLIST_DOWNLOAD_SOCKS4,
-            'PROXYLIST_DOWNLOAD_SOCKS5': PROXYLIST_DOWNLOAD_SOCKS5,
+            'A1': A1,
+            'A2': A2,
+            'A3': A3,
+            'A4': A4,
+            'A5': A5,
+            'A6': A6,
+            'A7': A7,
+            'A8': A8,
+            'A9': A9,
+            'A10': A10,
+            'A11': A11,
+            'A12': A12,
+            'A13': A13,
+            'A14': A14,
+            'A15': A15,
+            'A16': A16,
+            'A17': A17,
+            'A18': A18,
+            'A19': A19,
+            'A20': A20,
             'ALL': ALL
         }
         self.print_trace = print_err_trace
@@ -122,18 +136,8 @@ class Scrapper:
         """
         try:
             r = requests.get(url=self.Categories[self.category])
-            if self.category == 'SPYS.ME' or self.category == 'proxyscrape':
+            if self.category == 'A1' or self.category == 'A2' or self.category == 'A3' or self.category == 'A4' or self.category == 'A5' or self.category == 'A6' or self.category == 'A7' or self.category == 'A8' or self.category == 'A9' or self.category == 'A10' or self.category == 'A11' or self.category == 'A12' or self.category == 'A13' or self.category == 'A14' or self.category == 'A15' or self.category == 'A16' or self.category == 'A17' or self.category == 'A18' or self.category == 'A19' or self.category == 'A20':
                 self.proxies = findall(r'\d+\.\d+\.\d+\.\d+:\d+', r.text)
-            elif self.category == 'PROXYNOVA':
-                matches = findall(
-                    r'\d+\.\d+\.\d+\.\d+\'\)\;</script>\s*</abbr>\s*</td>\s*<td\salign=\"left\">\s*\d+',
-                    r.text)
-                self.proxies = [sub(r"\'\)\;</script>\s*</abbr>\s*</td>\s*<td\salign=\"left\">\s*", ":", m) for m in
-                                matches]
-            elif self.category in {'PROXYLIST_DOWNLOAD_HTTP', 'PROXYLIST_DOWNLOAD_HTTPS',
-                                 'PROXYLIST_DOWNLOAD_SOCKS4', 'PROXYLIST_DOWNLOAD_SOCKS5'}:
-                matches = findall(r'\d+\.\d+\.\d+\.\d+</td>\s*<td>\d+', r.text)
-                self.proxies = [sub(r"</td>\s*<td>", ":", m) for m in matches]
             else:
                 matches = findall(r'\d+\.\d+\.\d+\.\d+</td><td>\d+', r.text)
                 self.proxies = [m.replace('</td><td>', ':') for m in matches]
